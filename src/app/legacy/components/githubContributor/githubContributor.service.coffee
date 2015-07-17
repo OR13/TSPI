@@ -1,5 +1,6 @@
 angular.module "ALTGC"
-.factory 'githubContributor', ($log, $http) ->
+.factory 'githubContributor', ['$log', '$http', ($log, $http) ->
+
   apiHost = 'https://api.github.com/repos/OR13/ALTGC'
 
   getContributors = (limit) ->
@@ -17,3 +18,4 @@ angular.module "ALTGC"
   service =
     apiHost: apiHost
     getContributors: getContributors
+]

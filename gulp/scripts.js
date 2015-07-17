@@ -17,6 +17,7 @@ module.exports = function(options) {
     .pipe($.coffeelint.reporter())
     .pipe($.coffee()).on('error', options.errorHandler('CoffeeScript'))
     .pipe($.sourcemaps.write())
+    .pipe($.ngAnnotate())
     .pipe(gulp.dest(path.join(options.tmp, '/serve/app/legacy')))
     .pipe(browserSync.reload({ stream: true }))
     .pipe($.size());
@@ -27,6 +28,7 @@ module.exports = function(options) {
       .pipe($.tslint.report('prose', { emitError: false }))
       .pipe($.typescript({sortOutput: true})).on('error', options.errorHandler('TypeScript'))
       .pipe($.sourcemaps.write())
+      .pipe($.ngAnnotate())
       .pipe($.toJson({filename: options.tmp + '/sortOutput.json', relative:true}))
       .pipe(gulp.dest(options.tmp + '/serve/app'))
       .pipe(browserSync.reload({ stream: true }))

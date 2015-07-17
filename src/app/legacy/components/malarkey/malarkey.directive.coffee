@@ -1,7 +1,7 @@
 angular.module "ALTGC"
 .directive 'altgcMalarkey', ->
 
-  MalarkeyController = ($log, githubContributor) ->
+  MalarkeyController = ['$log', 'githubContributor', ($log, githubContributor) ->
     vm = this
 
     activate = ->
@@ -17,8 +17,7 @@ angular.module "ALTGC"
     vm.contributors = []
     activate()
     return
-
-
+  ]
 
   linkFunc = (scope, el, attr, vm) ->
     watcher = undefined

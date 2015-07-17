@@ -1,5 +1,6 @@
-angular.module "ALTGC"
-.service "webDevTec", ($log) ->
+
+webDevTec = ['$log', ($log) ->
+
   $log.debug('testing webDevTec debug...')
   data = [
     {
@@ -42,7 +43,7 @@ angular.module "ALTGC"
       'title': 'Bootstrap',
       'url': 'http://getbootstrap.com/',
       'description': 'Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, ' +
-                     'mobile first projects on the web.',
+        'mobile first projects on the web.',
       'logo': 'bootstrap.png'
     },
     {
@@ -55,7 +56,7 @@ angular.module "ALTGC"
       'title': 'Less',
       'url': 'http://lesscss.org/',
       'description': 'Less extends the CSS language, adding features that allow variables, mixins, ' +
-                     'functions and many other techniques.',
+        'functions and many other techniques.',
       'logo': 'less.png'
     },
     {
@@ -71,3 +72,7 @@ angular.module "ALTGC"
 
   @getTec = getTec
   return
+]
+
+angular.module("ALTGC").service('webDevTec', webDevTec)
+

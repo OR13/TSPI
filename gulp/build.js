@@ -39,8 +39,6 @@ module.exports = function (options) {
 
         var assets;
 
-
-
         return gulp.src(options.tmp + '/serve/*.html')
             .pipe($.inject(partialsInjectFile, partialsInjectOptions))
             .pipe(assets = $.useref.assets())
