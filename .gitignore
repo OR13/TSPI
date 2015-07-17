@@ -3,6 +3,7 @@
 .tscache
 .tmp
 .idea
+.publish
 node_modules
 bower_components
 dist
