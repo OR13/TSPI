@@ -1,0 +1,9 @@
+.baseDir.ts
+.baseDir.js
+.tscache
+.tmp
+.idea
+node_modules
+bower_components
+dist
+

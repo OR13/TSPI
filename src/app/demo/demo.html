@@ -1,0 +1,25 @@
+<div ng-include="'app/components/navbar/navbar.html'"></div>
+
+<div class="container">
+
+    <div class="col-md-8 col-sm-8 col-lg-8">
+        <h3>
+           Demo Items
+        </h3>
+        <hr/>
+        <div  class="list-group"  as-sortable="sortableOptions" ng-model="draggableObjects" >
+            <div ng-repeat="demoItem in draggableObjects" as-sortable-item class="list-group-item">
+                <div as-sortable-item-handle>
+                    <altgc-demo-item item="demoItem" />
+                </div>
+            </div>
+        </div>
+
+
+        <div ng-include="'app/components/footer/footer.html'"></div>
+
+
+    </div>
+
+
+</div>
