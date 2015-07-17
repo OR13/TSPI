@@ -1,5 +1,6 @@
 angular.module "ALTGC"
-.service "webDevTec", ['$log', ($log) ->
+.service "webDevTec", ($log) ->
+  $log.debug('testing webDevTec debug...')
   data = [
     {
       'title': 'AngularJS',
@@ -70,4 +71,3 @@ angular.module "ALTGC"
 
   @getTec = getTec
   return
-]

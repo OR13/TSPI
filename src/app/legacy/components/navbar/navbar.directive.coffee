@@ -1,12 +1,14 @@
 angular.module "ALTGC"
-.directive 'altgcNavbar',  ['$log', ($log) ->
+.directive 'altgcNavbar',  ($log) ->
 
-  LegacyNavbarController = ['$log', ($log) ->
+  $log.debug('testing altgcNavbar debug...')
+
+  LegacyNavbarController = ($log) ->
+    $log.debug('testing LegacyNavbarController debug...')
     vm = this
     # "vm.creation" is avaible by directive option "bindToController: true"
     vm.relativeDate = vm.creationDate
     return
-  ]
 
   directive =
     restrict: 'E'
@@ -18,6 +20,6 @@ angular.module "ALTGC"
     bindToController: true
 
   return directive
-]
+
 
 
