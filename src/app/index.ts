@@ -12,21 +12,17 @@ module ALTGC {
         'ui.router',
         'ui.bootstrap',
         'ui.sortable',
-        'firebase'
-
+        'firebase',
+        'toastr',
     ])
         .controller(ALTGC.Controllers)
         .directive(ALTGC.Directives)
         .controller('NavbarCtrl', NavbarCtrl)
         .controller('DeveloperFeaturesController', DeveloperFeaturesController)
         .controller('DemoController', DemoController)
-        // .directive('flEducationLink', EducationLinkTaskDirective.factory())
-        // .directive('flNumericFloat', NumericFloatTaskDirective.factory())
-        // .directive('flNumericFloatSelectOne', NumericFloatSelectOneTaskDirective.factory())
         .config(function ($locationProvider: ng.ILocationProvider, $stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) {
 
             $locationProvider.html5Mode(true);
-
 
             $stateProvider
                 .state('demo', {
@@ -46,7 +42,4 @@ module ALTGC {
             $urlRouterProvider.otherwise('/');
 
         });
-
-
-
 }

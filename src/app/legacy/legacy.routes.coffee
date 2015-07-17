@@ -1,3 +1,4 @@
+
 angular.module "ALTGC"
 .config ($stateProvider) ->
   $stateProvider
@@ -6,7 +7,3 @@ angular.module "ALTGC"
     templateUrl: "app/legacy/legacy/legacy.html"
     controller: "LegacyController"
     controllerAs: "legacy"
-
-.constant 'malarkey', malarkey
-.constant 'toastr', toastr
-
