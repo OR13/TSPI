@@ -4,24 +4,20 @@
 
   <div class="well text-center">
     <h1> Developer Features</h1>
-
-
-
   </div>
 
   <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="toyIVRCarePlanComponent in stackComponents | orderBy:'rank'">
+    <div class="col-sm-6 col-md-4" ng-repeat="techComponent in stackComponents | orderBy:'rank'">
       <div class="thumbnail">
-        <img class="pull-right" ng-src="assets/images/specs/{{toyIVRCarePlanComponent.logo}}" alt="{{toyIVRCarePlanComponent.title}}">
+        <img class="pull-right" ng-src="assets/images/specs/{{techComponent.logo}}" alt="{{techComponent.title}}">
         <div class="caption">
-          <h3>{{toyIVRCarePlanComponent.title}}</h3>
-          <p>{{toyIVRCarePlanComponent.description}}</p>
-          <p><a ng-href="{{toyIVRCarePlanComponent.url}}">{{toyIVRCarePlanComponent.url}}</a></p>
+          <h3>{{techComponent.title}}</h3>
+          <p>{{techComponent.description}}</p>
+          <p><a ng-href="{{techComponent.url}}">{{techComponent.url}}</a></p>
         </div>
       </div>
     </div>
   </div>
   <hr>
-
 
 </div>
