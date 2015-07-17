@@ -35,29 +35,29 @@ module.exports = function (options) {
 
         var htmlFilter = $.filter('*.html');
         var jsFilter = $.filter('**/*.js');
-        var cssFilter = $.filter('/blessed-styles/*.css');
+        var cssFilter = $.filter('**/*.css');
 
         var assets;
 
-        gulp.src(options.tmp + '/serve/blessed-styles/*.css', {read: true})
-            .pipe($.concat('all.css'))
-            .pipe($.csso())
-            .pipe($.bless())
-            .pipe(gulp.dest(options.dist + '/blessed-styles/'));
+
 
         return gulp.src(options.tmp + '/serve/*.html')
             .pipe($.inject(partialsInjectFile, partialsInjectOptions))
             .pipe(assets = $.useref.assets())
+            .pipe(cssFilter)
+            .pipe($.concat('blessed-styles/all.css'))
+            .pipe($.csso())
+            .pipe($.bless())
+            .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
+            .pipe(cssFilter.restore())
             .pipe($.rev())
             .pipe(jsFilter)
             .pipe($.ngAnnotate())
             .pipe($.uglify({preserveComments: $.uglifySaveLicense})).on('error', options.errorHandler('Uglify'))
             .pipe(jsFilter.restore())
-            .pipe(cssFilter)
-            .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
-            .pipe(cssFilter.restore())
             .pipe(assets.restore())
             .pipe($.useref())
+            .pipe($.replace('<link rel="stylesheet" href="blessed-styles/bower_styles.css">', ''))
             .pipe($.revReplace())
             .pipe(htmlFilter)
             .pipe($.minifyHtml({
