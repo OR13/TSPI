@@ -5,6 +5,18 @@ Angular Less TypeScript Gulp CoffeeScript
 
 A project for hybrid coffee-typescript apps, or migrating from coffeescript to typescript.
 
+
+### Features
+* Built in Github Deployment.
+* IE 9 support through a large number of fancy css processors.
+* Less support for those not yet willing to take the sass plunge.
+* Toastr demo for app notifications.
+* Common packages: ui-router, bootstrap, firebase.
+* Gulp does all the heavy lifting. Optimized builds.
+* TypeScript and CoffeeScript Gulp Support.
+* Strict mode is the default.
+
+
 ### Getting Started
 
 Clone this repo:
@@ -48,13 +60,3 @@ CoffeeScript files are stored in:
 
 `` src/app/legacy ``
 
-
-### Features
-* Built in Github Deployment.
-* IE 9 support through a large number of fancy css processors.
-* Less support for those not yet willing to take the sass plunge.
-* Toastr demo for app notifications.
-* Common packages: ui-router, bootstrap, firebase.
-* Gulp does all the heavy lifting. Optimized builds.
-* TypeScript and CoffeeScript Gulp Support.
-* Strict mode is the default.
