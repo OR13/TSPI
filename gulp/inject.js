@@ -8,8 +8,8 @@ module.exports = function (options) {
     gulp.task('inject', ['scripts', 'styles', 'bless'], function () {
 
         var injectStyles = gulp.src([
-            options.tmp + '/serve/blessed-styles/*.css',
-            '!' + options.tmp + '/serve/blessed-styles/vendor.css'
+            options.tmp + '/serve/styles/*.css',
+            '!' + options.tmp + '/serve/styles/vendor.css'
         ], {read: false});
 
         var sortOutput = require('../' + options.tmp + '/sortOutput.json');

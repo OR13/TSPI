@@ -2,8 +2,8 @@
 angular.module "ALTGC"
 .config ['$stateProvider', ($stateProvider) ->
   $stateProvider
-  .state "legacy",
-    url: "/legacy"
+  .state "coffeescript",
+    url: "/coffeescript"
     templateUrl: "app/legacy/legacy/legacy.html"
     controller: "LegacyController"
     controllerAs: "legacy"

@@ -1,21 +1,22 @@
-<nav class="navbar navbar-static-top navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="https://github.com/OR13/ALTGC">
-        <span class="fa fa-gear"></span> Legacy
-      </a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
-      <ul class="nav navbar-nav">
-        <li class="active"><a ng-href="/legacy">LegacyApp</a></li>
-        <li><a ng-href="/developer-features">DevFeatures</a></li>
-        <li><a ng-href="/">New App</a></li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right altgc-navbar-text">
-        <li>Application was created {{ vm.relativeDate }}.</li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<ul class="nav nav-pills">
+    <li ui-sref-active="active" role="presentation">
+        <a ui-sref="typescript">
+            <i class="fa fa-windows"></i> TypeScript
+        </a>
+    </li>
+    <li ui-sref-active="active" role="presentation">
+        <a ui-sref="coffeescript">
+            <i class="fa fa-coffee"></i> CoffeeScript
+        </a>
+    </li>
+    <li ui-sref-active="active" role="presentation">
+        <a ui-sref="developer-features">
+            <i class="fa fa-code"></i> Dev Features
+        </a>
+    </li>
+    <li>
+        <a ng-href="https://github.com/OR13/ALTGC" target="_blank">
+            <i class="fa fa-github"></i> View Source
+        </a>
+    </li>
+</ul>

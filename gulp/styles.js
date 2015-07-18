@@ -4,6 +4,11 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 var $ = require('gulp-load-plugins')();
 
+var autoprefixer = require('autoprefixer-core');
+var mqpacker = require('css-mqpacker');
+var csswring = require('csswring');
+
+
 var wiredep = require('wiredep').stream;
 
 module.exports = function (options) {
@@ -35,7 +40,9 @@ module.exports = function (options) {
         var vendorFilter = $.filter('vendor.less');
 
         var cssProcessors = [
-            $.autoprefixer
+            autoprefixer({browsers: ['last 2 version']}),
+            mqpacker,
+            csswring
         ];
 
         return gulp.src([

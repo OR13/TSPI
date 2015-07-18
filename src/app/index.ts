@@ -25,8 +25,8 @@ module ALTGC {
             $locationProvider.html5Mode(true);
 
             $stateProvider
-                .state('demo', {
-                    url: '/',
+                .state('typescript', {
+                    url: '/typescript',
                     templateUrl: 'app/demo/demo.html',
                     controller: 'DemoController'
                 });
@@ -39,7 +39,7 @@ module ALTGC {
                     controller: 'DeveloperFeaturesController'
                 });
 
-            $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.otherwise('/typescript');
 
         }]);
 }

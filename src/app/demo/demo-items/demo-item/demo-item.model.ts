@@ -4,12 +4,12 @@ module ALTGC {
     export class DemoItem {
 
         public name: string;
-        public description: string;
+        public count: number;
         public priority: number;
         public isComplete: boolean;
 
         constructor(name: string = 'default', isComplete: boolean = false) {
-            this.name = 'harold';
+            this.count = 0;
         }
     }
 }

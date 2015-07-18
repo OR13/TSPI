@@ -3,6 +3,10 @@
 var gulp = require('gulp');
 
 
+var autoprefixer = require('autoprefixer-core');
+var mqpacker = require('css-mqpacker');
+var csswring = require('csswring');
+
 var $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'gulp.bless', 'main-bower-files', 'uglify-save-license', 'del']
 });
@@ -39,14 +43,21 @@ module.exports = function (options) {
 
         var assets;
 
+        var cssProcessors = [
+            autoprefixer({browsers: ['last 2 version']}),
+            mqpacker,
+            csswring,
+            $.csso,
+            $.bless
+        ];
+
         return gulp.src(options.tmp + '/serve/*.html')
             .pipe($.inject(partialsInjectFile, partialsInjectOptions))
             .pipe(assets = $.useref.assets())
             .pipe(cssFilter)
-            .pipe($.concat('blessed-styles/all.css'))
+            .pipe($.concat('styles/all.css'))
             .pipe($.replace('../../bower_components/bootstrap/fonts/', '../fonts/'))
-            .pipe($.csso())
-            //.pipe($.bless())
+            .pipe($.postcss(cssProcessors)).on('error', options.errorHandler('Autoprefixer'))
             .pipe(cssFilter.restore())
             .pipe($.rev())
             .pipe(jsFilter)
@@ -55,7 +66,7 @@ module.exports = function (options) {
             .pipe(jsFilter.restore())
             .pipe(assets.restore())
             .pipe($.useref())
-            .pipe($.replace('<link rel="stylesheet" href="blessed-styles/bower_styles.css">', ''))
+            .pipe($.replace('<link rel="stylesheet" href="styles/temp.css">', ''))
             .pipe($.revReplace())
             .pipe(htmlFilter)
             .pipe($.minifyHtml({

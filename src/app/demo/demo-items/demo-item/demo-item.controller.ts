@@ -13,11 +13,11 @@ module ALTGC.Controllers {
 
         constructor(isolateScope: Directives.IDemoItemScope) {
             this.item = isolateScope.item;
-
+            this.item.count = 0;
         }
 
-        debug() {
-            console.log('lol DEBUG');
+        count() {
+           this.item.count += 1;
         }
 
     }

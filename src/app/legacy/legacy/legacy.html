@@ -1,25 +1,28 @@
+<div ng-include="'app/components/navbar/navbar.html'"></div>
+
 <div class="container">
 
-    <div>
-        <altgc-navbar creationDate="legacy.creationDate"/>
+    <div class="row">
+        <div class="col-sm-12 col-md-12" style="margin-top: 32px; margin-bottom: 64px">
+            <altgc-navbar/>
+        </div>
     </div>
 
-    <div class="jumbotron text-center">
-        <h1>'Your, 'Legacy Coffee Script Here!</h1>
+    <div class="row">
 
-        <p class="lead">
-            <img src="assets/images/specs/yeoman.png" alt="I'm Yeoman"><br>
-            Always a pleasure scaffolding your apps.
-        </p>
-
-        <p class="animated infinite" ng-class="legacy.classAnimation">
-            <button type="button" class="btn btn-lg btn-success" ng-click="legacy.showToastr()">Splendid Toastr</button>
-        </p>
-
-        <p>
-            With ♥ thanks to the contributions of
-            <altgc-malarkey extra-values="['Yeoman', 'Gulp', 'Angular']"/>
-        </p>
+        <div class="col-sm-6 col-md-6">
+            <h1 style="margin-bottom: 64px;">
+                <altgc-malarkey extra-values="['CoffeeScript', 'Yeoman', 'Gulp', 'Angular']"/>
+            </h1>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <h1 style="margin-bottom: 64px;">
+                <button ng-class="legacy.classAnimation" type="button"
+                        class="btn btn-lg btn-success animated infinite pull-right" ng-click="legacy.showToastr()">Get
+                    Started!
+                </button>
+            </h1>
+        </div>
 
     </div>
 
