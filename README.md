@@ -35,8 +35,22 @@ Build the app for production:
 
 ``` gulp clean; gulp build-prod ```
 
-### Features
 
+### Directory Structure
+
+
+TypeScript files are stored in:
+
+`` src/app/ ``
+
+
+CoffeeScript files are stored in:
+
+`` src/app/legacy ``
+
+
+### Features
+* Built in Github Deployment.
 * IE 9 support through a large number of fancy css processors.
 * Less support for those not yet willing to take the sass plunge.
 * Toastr demo for app notifications.
