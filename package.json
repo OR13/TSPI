@@ -5,6 +5,8 @@
   "scripts": {
     "test": "gulp test"
   },
+  "license": "MIT",
+  "repository" : "https://github.com/OR13/TSPI",
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
     "bless4": "^4.10.1",

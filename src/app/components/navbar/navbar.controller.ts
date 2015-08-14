@@ -1,4 +1,4 @@
-module TSPI {
+module TSPI.Controllers {
   'use strict';
 
   interface INavbarScope extends ng.IScope {

@@ -2,9 +2,10 @@
 
 /// <reference path="components/navbar/navbar.controller.ts" />
 
-/// <reference path="developer-features/developer-features.controller.ts" />
+/// <reference path="interview/interview.controller.ts" />
+/// <reference path="interview/sim/sim.model.ts" />
+/// <reference path="interview/map/map.model.ts" />
+/// <reference path="interview/map/map.controller.ts" />
+/// <reference path="interview/map/map.directive.ts" />
+/// <reference path="interview/map/city/city.model.ts" />
 
-/// <reference path="demo/demo.controller.ts" />
-/// <reference path="demo/demo-items/demo-item/demo-item.model.ts" />
-/// <reference path="demo/demo-items/demo-item/demo-item.controller.ts" />
-/// <reference path="demo/demo-items/demo-item/demo-item.directive.ts" />

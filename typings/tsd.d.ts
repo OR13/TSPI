@@ -10,4 +10,7 @@
 /// <reference path="firebase/firebase.d.ts" />
 /// <reference path="angularfire/angularfire.d.ts" />
 /// <reference path="toastr/toastr.d.ts" />
+/// <reference path="d3/d3.d.ts" />
+/// <reference path="ace/ace.d.ts" />
+/// <reference path="underscore/underscore.d.ts" />
 
