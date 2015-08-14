@@ -1,4 +1,4 @@
-ALTGC
+TSPI
 ===============
 
 Angular Less TypeScript Gulp CoffeeScript
@@ -21,11 +21,11 @@ A project for hybrid coffee-typescript apps, or migrating from coffeescript to t
 
 Clone this repo:
 
-``` git clone git@github.com:OR13/ALTGC.git ```
+``` git clone git@github.com:OR13/TSPI.git ```
 
 Enter the root directory:
 
-``` cd ALTGC ```
+``` cd TSPI ```
 
 Install the dev dependencies locally :
 

@@ -74,5 +74,5 @@ webDevTec = ['$log', ($log) ->
   return
 ]
 
-angular.module("ALTGC").service('webDevTec', webDevTec)
+angular.module("TSPI").service('webDevTec', webDevTec)
 

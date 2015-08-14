@@ -1,4 +1,4 @@
-module ALTGC {
+module TSPI {
     'use strict';
 
     export class DemoItem {

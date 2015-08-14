@@ -1,4 +1,4 @@
-angular.module "ALTGC"
+angular.module "TSPI"
   .constant 'malarkey', malarkey
   .constant 'toastr', toastr
 

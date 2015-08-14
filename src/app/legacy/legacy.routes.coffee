@@ -1,5 +1,5 @@
 
-angular.module "ALTGC"
+angular.module "TSPI"
 .config ['$stateProvider', ($stateProvider) ->
   $stateProvider
   .state "coffeescript",

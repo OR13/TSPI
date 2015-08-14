@@ -1,7 +1,7 @@
-angular.module "ALTGC"
+angular.module "TSPI"
 .factory 'githubContributor', ['$log', '$http', ($log, $http) ->
 
-  apiHost = 'https://api.github.com/repos/OR13/ALTGC'
+  apiHost = 'https://api.github.com/repos/OR13/TSPI'
 
   getContributors = (limit) ->
     getContributorsComplete = (response) ->

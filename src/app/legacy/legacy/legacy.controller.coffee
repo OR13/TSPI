@@ -24,7 +24,7 @@ LegacyController = ['$timeout', 'webDevTec', ($timeout, webDevTec) ->
     return
 
   @showToastr = ->
-    toastr.info 'Fork <a href="https://github.com/OR13/ALTGC" target="_blank"><b>ALTGC</b></a>'
+    toastr.info 'Fork <a href="https://github.com/OR13/TSPI" target="_blank"><b>TSPI</b></a>'
     vm.classAnimation = ''
     return
 
@@ -32,4 +32,4 @@ LegacyController = ['$timeout', 'webDevTec', ($timeout, webDevTec) ->
   return
 
 ]
-angular.module("ALTGC").controller('LegacyController', LegacyController)
+angular.module("TSPI").controller('LegacyController', LegacyController)

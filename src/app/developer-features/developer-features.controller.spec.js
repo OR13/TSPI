@@ -3,7 +3,7 @@
 describe('controllers', function(){
   var scope;
 
-  beforeEach(module('ALTGC'));
+  beforeEach(module('TSPI'));
 
   beforeEach(inject(function($rootScope) {
     scope = $rootScope.$new();

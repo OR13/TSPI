@@ -1,6 +1,6 @@
 /// <reference path="../../../reference.ts" />
 
-module ALTGC.Controllers {
+module TSPI.Controllers {
     'use strict';
 
     export class DemoItemController {

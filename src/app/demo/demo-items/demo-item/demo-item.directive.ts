@@ -1,7 +1,7 @@
 /// <reference path="../../../reference.ts" />
 
 
-module ALTGC.Directives {
+module TSPI.Directives {
     'use strict';
 
     export interface IDemoItemScope {

@@ -1,4 +1,4 @@
-angular.module "ALTGC"
+angular.module "TSPI"
 .directive 'altgcNavbar',  ['$log', ($log) ->
 
   $log.debug('testing altgcNavbar debug...')

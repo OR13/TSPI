@@ -1,4 +1,4 @@
-angular.module "ALTGC"
+angular.module "TSPI"
 .directive 'altgcMalarkey', ->
 
   MalarkeyController = ['$log', 'githubContributor', ($log, githubContributor) ->

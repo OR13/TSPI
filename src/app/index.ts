@@ -1,9 +1,9 @@
 /// <reference path="reference.ts" />
 
-module ALTGC {
+module TSPI {
     'use strict';
 
-    angular.module('ALTGC', [
+    angular.module('TSPI', [
         'ngAnimate',
         'ngCookies',
         'ngTouch',
@@ -15,8 +15,8 @@ module ALTGC {
         'firebase'
 
     ])
-        .controller(ALTGC.Controllers)
-        .directive(ALTGC.Directives)
+        .controller(TSPI.Controllers)
+        .directive(TSPI.Directives)
         .controller('NavbarCtrl', NavbarCtrl)
         .controller('DeveloperFeaturesController', DeveloperFeaturesController)
         .controller('DemoController', DemoController)

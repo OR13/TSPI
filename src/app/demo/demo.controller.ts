@@ -1,6 +1,6 @@
 /// <reference path="../reference.ts" />
 
-module ALTGC {
+module TSPI {
     'use strict';
 
     interface IDemoScope extends ng.IScope {
