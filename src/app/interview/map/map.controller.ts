@@ -17,40 +17,41 @@ module TSPI.Controllers {
 
         constructor(isolateScope:Controllers.IMapScope) {
 
-            //setTimeout(function () {
+            var svgContainer = d3.select("#d3-container").append("svg");
 
-                isolateScope.map.svgContainer = d3.select("#d3-container").append("svg");
+            svgContainer
+                .attr("width", 512)
+                .attr("height", 512)
+                .style("border", "1px solid black");
 
-                isolateScope.map.svgContainer
-                    .attr("width", 512)
-                    .attr("height", 512)
-                    .style("border", "1px solid black");
+            var circles = svgContainer.selectAll("circle")
+                .data(isolateScope.map.cities)
+                .enter()
+                .append("circle");
 
-                var circles = isolateScope.map.svgContainer.selectAll("circle")
-                    .data(isolateScope.map.cities)
-                    .enter()
-                    .append("circle");
+            var circleAttributes = circles
+                .attr("cx", function (d:City) {
+                    return d.x_axis;
+                })
+                .attr("cy", function (d:City) {
+                    return d.y_axis;
+                })
+                .attr("r", function (d:City) {
+                    return 10;
+                })
+                .style("fill", function (d:City) {
+                    return d.color;
+                });
 
-                var circleAttributes = circles
-                    .attr("cx", function (d:City) {
-                        return d.x_axis;
-                    })
-                    .attr("cy", function (d:City) {
-                        return d.y_axis;
-                    })
-                    .attr("r", function (d:City) {
-                        return 10;
-                    })
-                    .style("fill", function (d:City) {
-                        return d.color;
-                    });
+            svgContainer.append("line")
+                .style("stroke", "black")
+                .attr("x1", 5)
+                .attr("y1", 5)
+                .attr("x2", 100)
+                .attr("y2", 100);
 
-                console.log(isolateScope.map.svgContainer);
-
-            //}, 500);
+            console.log(svgContainer);
 
         }
-
-
     }
 }
