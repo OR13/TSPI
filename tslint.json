@@ -27,8 +27,6 @@
     "no-arg": true,
     "no-bitwise": true,
     "no-console": [true,
-      "debug",
-      "info",
       "time",
       "timeEnd",
       "trace"
@@ -80,8 +78,7 @@
       "check-branch",
       "check-decl",
       "check-operator",
-      "check-separator",
-      "check-type"
+      "check-separator"
     ]
   }
 }

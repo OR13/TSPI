@@ -25,7 +25,7 @@ module.exports = function(options) {
     return gulp.src(options.src + '/app/**/*.ts')
       .pipe($.sourcemaps.init())
       .pipe($.tslint())
-      .pipe($.tslint.report('prose', { emitError: false }))
+      .pipe($.tslint.report('verbose', { emitError: false }))
       .pipe($.typescript({sortOutput: true})).on('error', options.errorHandler('TypeScript'))
       .pipe($.sourcemaps.write())
       .pipe($.ngAnnotate())

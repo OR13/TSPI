@@ -1,25 +1,31 @@
 <div class="container">
 
     <div class="row">
-
-        <h1 style="margin-bottom: 64px; margin-top: 64px;">
+        <h1 style="margin-top: 64px; margin-bottom: 32px;">
             TSP Interview
         </h1>
+
 
     </div>
 
     <div class="row">
+        <div ui-ace="aceOptions" ng-model="aceModel" class="col-sm-6 col-md-6 col-lg-6"></div>
 
+        <tspi-sim class="col-sm-6 col-md-6 col-lg-6">
 
-        <div class="col-sm-6 col-md-6 col-lg-6" ui-ace="aceOptions" ng-model="aceModel"></div>
+            <div style=" margin-bottom: 32px;">
+                <button class="btn btn-primary" ng-click="SimController.run()">
+                    <i class="fa fa-gear"></i> Run
+                </button>
 
+                <button class="btn btn-danger" ng-click="SimController.reload()">
+                    <i class="fa fa-refresh"></i> Reload
+                </button>
+            </div>
 
-        <div class="col-sm-6 col-md-6 col-lg-6">
+            <tspi-map map="interviewSim.map"></tspi-map>
 
-            <tsp-map map="interviewMap"/>
-
-        </div>
-
+        </tspi-sim>
     </div>
 
 </div>
