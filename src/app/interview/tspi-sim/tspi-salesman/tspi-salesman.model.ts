@@ -6,11 +6,13 @@ module TSPI {
     export class TSPISalesman {
 
         public path:Array<City>;
-        public distance:number;
+        public pathDistance:number;
+        public isWinner: boolean;
 
         constructor() {
             this.path = [];
-            this.distance = 0;
+            this.pathDistance = 0;
+            this.isWinner = false;
         }
 
         getPathToAllCities(map:TSPIMap) {
@@ -26,10 +28,10 @@ module TSPI {
         travelToCity(destinationCity:City) {
             if (this.path.length === 0) {
                 this.path.push(destinationCity);
-                this.distance = 0;
+                this.pathDistance = 0;
             } else {
                 var distanceToDestination = this.getDistanceToCity(destinationCity);
-                this.distance += distanceToDestination;
+                this.pathDistance += distanceToDestination;
                 this.path.push(destinationCity);
             }
         }
@@ -54,13 +56,11 @@ module TSPI {
                 return map.cities[0];
             }
 
-            map.cities.forEach(function (city:City) {
-                if (self.path.indexOf(city) === -1) {
-                    return city;
-                }
-            });
+            if (self.path.length === map.cities.length) {
+                return map.cities[0];
+            }
 
-            return self.path[0];
+            return map.cities[self.path.length];
         }
     }
 }

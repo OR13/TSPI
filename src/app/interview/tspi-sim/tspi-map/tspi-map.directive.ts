@@ -21,7 +21,10 @@ module TSPI.Directives {
                     .attr('height', 512);
 
                 scope.ui.drawCities = function () {
+
+                    scope.ui.svgContainer.selectAll('line').remove();
                     scope.ui.svgContainer.selectAll('circle').remove();
+
                     scope.ui.svgContainer.selectAll('circle')
                         .data(scope.interviewSim.map.cities)
                         .enter()
@@ -40,20 +43,35 @@ module TSPI.Directives {
                         });
                 };
 
-                scope.ui.drawPaths = function () {
+                scope.ui.drawPath = function (path: Array<City>) {
+
                     scope.ui.svgContainer.selectAll('line').remove();
-                    scope.ui.svgContainer.append('line')
-                        .style('stroke', 'black')
-                        .attr('x1', 5)
-                        .attr('y1', 5)
-                        .attr('x2', 100)
-                        .attr('y2', 100);
+
+                    for (var i = 0; i < path.length -1; i++){
+                        var c1 = path[i];
+                        var c2 = path[i+1];
+
+                        scope.ui.svgContainer.append('line')
+                            .style('stroke', 'black')
+                            .attr('x1', c1.x_axis)
+                            .attr('y1', c1.y_axis)
+                            .attr('x2', c2.x_axis)
+                            .attr('y2', c2.y_axis);
+                    };
+
                 };
 
                 scope.$watch('interviewSim.map', function (map:TSPIMap) {
                     console.warn('Map Watcher: ', map);
                     scope.ui.drawCities();
-                    scope.ui.drawPaths();
+                });
+
+                scope.$watch('interviewSim.salesman.path', function (path: Array<City>) {
+                    if (path !== undefined){
+                        console.warn('Salesman Path Watcher: ', path);
+                        scope.ui.drawPath(path);
+                    }
+
                 });
 
                 console.info('Map Linker: ', scope);

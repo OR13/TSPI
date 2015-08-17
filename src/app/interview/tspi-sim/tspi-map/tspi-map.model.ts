@@ -16,12 +16,14 @@ module TSPI {
                     return (Math.random() * (max - min) + 1) + min;
                 };
 
+                var colors = ['purple', 'green', 'blue', 'red', 'orange', 'teal', 'yellow'];
+
                 for (var cityId = 0; cityId < 8; cityId++) {
                     var city = new City(
                         cityId,
-                        'My City',
+                        `City ${cityId}`,
                         'Its Description',
-                        'purple',
+                        colors[Math.floor(Math.random()*colors.length)],
                         randomWithRange(128, 384),
                         randomWithRange(128, 384)
                     );
