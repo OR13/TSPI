@@ -15,4 +15,5 @@
 /// <reference path="interview/tspi-sim/tspi-map/tspi-map.controller.ts" />
 
 /// <reference path="interview/tspi-sim/tspi-map/tspi-city/tspi-city.model.ts" />
+/// <reference path="interview/tspi-sim/tspi-map/tspi-path/tspi-path.model.ts" />
 

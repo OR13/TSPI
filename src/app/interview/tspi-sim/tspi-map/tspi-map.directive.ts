@@ -20,6 +20,10 @@ module TSPI.Directives {
                     .attr('width', 512)
                     .attr('height', 512);
 
+                //scope.ui.color = d3.scale.linear()
+                //    .domain([0, 1])
+                //    .range(["red", "green"]);
+
                 scope.ui.drawCities = function () {
 
                     scope.ui.svgContainer.selectAll('line').remove();
@@ -29,23 +33,23 @@ module TSPI.Directives {
                         .data(scope.interviewSim.map.cities)
                         .enter()
                         .append('circle')
-                        .attr('cx', function (d:City) {
+                        .attr('cx', function (d:TSPICity) {
                             return d.x_axis;
                         })
-                        .attr('cy', function (d:City) {
+                        .attr('cy', function (d:TSPICity) {
                             return d.y_axis;
                         })
-                        .attr('r', function (d:City) {
-                            return 10;
+                        .attr('r', function (d:TSPICity) {
+                            return 5;
                         })
-                        .style('fill', function (d:City) {
+                        .style('fill', function (d:TSPICity) {
                             return d.color;
                         });
                 };
 
-                scope.ui.drawPath = function (path:Array<City>) {
+                scope.ui.drawPath = function (path:Array<TSPICity>) {
 
-                    scope.ui.svgContainer.selectAll('line').remove();
+                    //scope.ui.nextColor = d3.rgb.brighter(scope.ui.nextColor);
 
                     for (var i = 0; i < path.length - 1; i++) {
                         var c1 = path[i];
@@ -59,23 +63,22 @@ module TSPI.Directives {
                             .attr('y2', c2.y_axis);
                     };
 
-
                 };
 
-                scope.$watch('interviewSim.map', function (map:TSPIMap) {
-                    console.warn('Map Watcher: ', map);
+                scope.$watch('interviewSim.map.cities', function (cities:Array<TSPICity>) {
+                    //console.warn('Map Cities: ', cities);
                     scope.ui.drawCities();
                 });
 
-                scope.$watch('interviewSim.salesman.currentPath', function (currentPath:Array<City>) {
-                    if (currentPath !== undefined) {
-                        console.warn('Salesman Path Watcher: ', currentPath);
-                        scope.ui.drawPath(currentPath);
-                    }
+                scope.$watch('interviewSim.shortestPath', function (path: TSPIPath) {
+                    console.warn('Sim : ', scope.interviewSim);
 
-                });
+                    if (path === null){ return; }
 
-                console.info('Map Linker: ', scope);
+                    scope.ui.drawPath(path.cities);
+
+                }, true);
+
             }
         };
     }

@@ -17,7 +17,8 @@ module TSPI.Controllers {
         public map:TSPIMap;
 
         constructor($scope: ITSPIMapScope) {
-            console.info('Map Controller: ', $scope);
+            //console.info('Map Controller: ', $scope);
+
         }
 
     }

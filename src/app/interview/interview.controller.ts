@@ -27,7 +27,7 @@ module TSPI.Controllers {
                     _editor.$blockScrolling = Infinity;
                 },
                 onChange: function (e: any) {
-                    console.log('editor changed...', e);
+                    //console.log('editor changed...', e);
                 }
             };
 

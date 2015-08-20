@@ -13,7 +13,8 @@
 
         <tspi-sim class="col-sm-6 col-md-6 col-lg-6">
 
-            <div style=" margin-bottom: 32px;">
+
+            <div class="tspi-controls">
                 <button class="btn btn-primary" ng-click="SimController.run()">
                     <i class="fa fa-gear"></i> Run
                 </button>
@@ -21,15 +22,19 @@
                 <button class="btn btn-danger" ng-click="SimController.reload()">
                     <i class="fa fa-refresh"></i> Reload
                 </button>
+            </div>
 
-                <span class="label label-info">
-                    {{interviewSim.shortestPath}}
-                </span>
 
-                <span class="label label-default">
-                    {{interviewSim.iteration}}
-                </span>
+            <div class="tspi-metrics" ng-show="interviewSim.shortestPath">
+                <h3>Metrics</h3>
 
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="path in interviewSim.shortestPaths">
+                        <span class="badge badge-info">{{path.distance}}</span>
+                        <span class="badge">{{interviewSim.iteration}}</span>
+                        Path
+                    </li>
+                </ul>
             </div>
 
             <tspi-map map="interviewSim.map"></tspi-map>

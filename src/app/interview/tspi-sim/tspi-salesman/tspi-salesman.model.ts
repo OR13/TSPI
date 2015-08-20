@@ -5,10 +5,10 @@ module TSPI {
 
     export class TSPISalesman {
 
-        public currentCity:City;
-        public currentPath:Array<City>;
+        public currentCity:TSPICity;
+        public currentPath:Array<TSPICity>;
         public currentPathDistance:number;
-        public remainingCities:Array<City>;
+        public remainingCities:Array<TSPICity>;
         public isWinner:boolean;
 
         constructor() {
@@ -44,7 +44,7 @@ module TSPI {
             return this.currentPath;
         }
 
-        travelToCity(destinationCity:City) {
+        travelToCity(destinationCity:TSPICity) {
             if (this.currentPath.length === 0) {
                 this.currentPath.push(destinationCity);
                 this.currentPathDistance = 0;
@@ -57,12 +57,12 @@ module TSPI {
 
         rankCities() {
 
-            this.currentPath.forEach(function (city:City) {
+            this.currentPath.forEach(function (city:TSPICity) {
                 city.promote();
             });
         }
 
-        smartlyChooseNextCity(remainingCities:Array<City>, iteration:number):City {
+        smartlyChooseNextCity(remainingCities:Array<TSPICity>, iteration:number):TSPICity {
 
             var self = this;
 
@@ -70,7 +70,7 @@ module TSPI {
             var bestCityScore = this.scoreCityCandidate(firstCity, iteration);
             var bestCity = firstCity;
 
-            remainingCities.forEach(function (nextCity:City) {
+            remainingCities.forEach(function (nextCity:TSPICity) {
                 var nextCityScore = self.scoreCityCandidate(nextCity, iteration);
 
                 if (nextCityScore > bestCityScore) {
@@ -82,7 +82,7 @@ module TSPI {
             return bestCity;
         }
 
-        scoreCityCandidate(city:City, iteration:number):number {
+        scoreCityCandidate(city:TSPICity, iteration:number):number {
 
             var self = this;
 

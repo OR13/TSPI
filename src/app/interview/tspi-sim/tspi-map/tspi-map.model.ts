@@ -5,10 +5,12 @@ module TSPI {
 
     export class TSPIMap {
 
-        public cities:Array<City>;
+        public cities:Array<TSPICity>;
+        public paths: Array<TSPIPath>;
 
-        constructor(cities:Array<City> = []) {
+        constructor(cities:Array<TSPICity> = []) {
             this.cities = cities;
+            this.paths = [];
 
             if (cities.length === 0) {
 
@@ -16,14 +18,12 @@ module TSPI {
                     return (Math.random() * (max - min) + 1) + min;
                 };
 
-                var colors = ['purple', 'green', 'blue', 'red', 'orange', 'teal', 'yellow'];
-
-                for (var cityId = 0; cityId < 8; cityId++) {
-                    var city = new City(
+                for (var cityId = 0; cityId < 5; cityId++) {
+                    var city = new TSPICity(
                         cityId,
                         `City ${cityId}`,
                         'Its Description',
-                        colors[Math.floor(Math.random() * colors.length)],
+                        'black',
                         randomWithRange(128, 384),
                         randomWithRange(128, 384)
                     );
@@ -32,7 +32,7 @@ module TSPI {
                 }
 
             }
-            console.info('Constructed: ', this);
+            //console.info('Constructed: ', this);
         }
     }
 }
