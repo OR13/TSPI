@@ -12,7 +12,7 @@ module TSPI {
 
             if (cities.length === 0) {
 
-                var randomWithRange = function (min: number, max: number) {
+                var randomWithRange = function (min:number, max:number) {
                     return (Math.random() * (max - min) + 1) + min;
                 };
 
@@ -23,7 +23,7 @@ module TSPI {
                         cityId,
                         `City ${cityId}`,
                         'Its Description',
-                        colors[Math.floor(Math.random()*colors.length)],
+                        colors[Math.floor(Math.random() * colors.length)],
                         randomWithRange(128, 384),
                         randomWithRange(128, 384)
                     );

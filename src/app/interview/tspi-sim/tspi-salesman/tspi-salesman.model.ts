@@ -5,62 +5,102 @@ module TSPI {
 
     export class TSPISalesman {
 
-        public path:Array<City>;
-        public pathDistance:number;
-        public isWinner: boolean;
+        public currentCity:City;
+        public currentPath:Array<City>;
+        public currentPathDistance:number;
+        public remainingCities:Array<City>;
+        public isWinner:boolean;
 
         constructor() {
-            this.path = [];
-            this.pathDistance = 0;
+            this.currentPath = [];
+            this.currentPathDistance = 0;
             this.isWinner = false;
         }
 
-        getPathToAllCities(map:TSPIMap) {
-
-            while (!this.hasVisitedAllCities(map)) {
-                var nextCity = this.naiveChooseNextCity(map);
-                this.travelToCity(nextCity);
-            }
-
-            return this.path;
-        }
-
-        travelToCity(destinationCity:City) {
-            if (this.path.length === 0) {
-                this.path.push(destinationCity);
-                this.pathDistance = 0;
-            } else {
-                var distanceToDestination = this.getDistanceToCity(destinationCity);
-                this.pathDistance += distanceToDestination;
-                this.path.push(destinationCity);
-            }
-        }
-
-        getDistanceToCity(destinationCity:City) {
-            var currentCity = this.path[this.path.length - 1];
-            var dx = destinationCity.x_axis - currentCity.x_axis;
-            var dy = destinationCity.y_axis - currentCity.y_axis;
-            var distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-            return distance;
-        }
-
-        hasVisitedAllCities(map:TSPIMap) {
-            return this.path.length === map.cities.length + 1;
-        }
-
-        naiveChooseNextCity(map:TSPIMap):City {
+        updateRemainingCitiesFrom(map:TSPIMap) {
 
             var self = this;
 
-            if (self.path.length === 0) {
-                return map.cities[0];
-            }
+            this.remainingCities = _.filter(map.cities, function (city) {
+                return !_.contains(self.currentPath, city);
+            });
 
-            if (self.path.length === map.cities.length) {
-                return map.cities[0];
-            }
-
-            return map.cities[self.path.length];
         }
+
+        getPathToAllCities(map:TSPIMap, iteration:number) {
+
+            this.travelToCity(map.cities[0]);
+
+            this.updateRemainingCitiesFrom(map);
+
+            while (this.remainingCities.length !== 0) {
+                var nextCity = this.smartlyChooseNextCity(this.remainingCities, iteration);
+                this.travelToCity(nextCity);
+                this.updateRemainingCitiesFrom(map);
+            }
+
+            this.travelToCity(this.currentPath[0]);
+
+            return this.currentPath;
+        }
+
+        travelToCity(destinationCity:City) {
+            if (this.currentPath.length === 0) {
+                this.currentPath.push(destinationCity);
+                this.currentPathDistance = 0;
+            } else {
+                this.currentPathDistance += this.currentCity.getDistanceFrom(destinationCity);
+                this.currentPath.push(destinationCity);
+            }
+            this.currentCity = this.currentPath[this.currentPath.length - 1];
+        }
+
+        rankCities() {
+
+            this.currentPath.forEach(function (city:City) {
+                city.promote();
+            });
+        }
+
+        smartlyChooseNextCity(remainingCities:Array<City>, iteration:number):City {
+
+            var self = this;
+
+            var firstCity = remainingCities[0];
+            var bestCityScore = this.scoreCityCandidate(firstCity, iteration);
+            var bestCity = firstCity;
+
+            remainingCities.forEach(function (nextCity:City) {
+                var nextCityScore = self.scoreCityCandidate(nextCity, iteration);
+
+                if (nextCityScore > bestCityScore) {
+                    bestCity = nextCity;
+                    bestCityScore = nextCityScore;
+                }
+            });
+
+            return bestCity;
+        }
+
+        scoreCityCandidate(city:City, iteration:number):number {
+
+            var self = this;
+
+            var distance = city.getDistanceFrom(this.currentCity);
+
+            if (iteration == 0) {
+                return 1 / distance;
+            }
+
+            var rand = Math.random();
+
+            if (rand > .5) {
+                return city.rank * (Math.random() * 20) / distance;
+            } else {
+                return (1 / distance) * city.rank;
+            }
+
+        }
+
     }
 }

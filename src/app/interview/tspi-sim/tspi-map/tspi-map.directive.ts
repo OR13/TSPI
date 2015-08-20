@@ -43,13 +43,13 @@ module TSPI.Directives {
                         });
                 };
 
-                scope.ui.drawPath = function (path: Array<City>) {
+                scope.ui.drawPath = function (path:Array<City>) {
 
                     scope.ui.svgContainer.selectAll('line').remove();
 
-                    for (var i = 0; i < path.length -1; i++){
+                    for (var i = 0; i < path.length - 1; i++) {
                         var c1 = path[i];
-                        var c2 = path[i+1];
+                        var c2 = path[i + 1];
 
                         scope.ui.svgContainer.append('line')
                             .style('stroke', 'black')
@@ -59,6 +59,7 @@ module TSPI.Directives {
                             .attr('y2', c2.y_axis);
                     };
 
+
                 };
 
                 scope.$watch('interviewSim.map', function (map:TSPIMap) {
@@ -66,10 +67,10 @@ module TSPI.Directives {
                     scope.ui.drawCities();
                 });
 
-                scope.$watch('interviewSim.salesman.path', function (path: Array<City>) {
-                    if (path !== undefined){
-                        console.warn('Salesman Path Watcher: ', path);
-                        scope.ui.drawPath(path);
+                scope.$watch('interviewSim.salesman.currentPath', function (currentPath:Array<City>) {
+                    if (currentPath !== undefined) {
+                        console.warn('Salesman Path Watcher: ', currentPath);
+                        scope.ui.drawPath(currentPath);
                     }
 
                 });

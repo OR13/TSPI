@@ -21,6 +21,15 @@
                 <button class="btn btn-danger" ng-click="SimController.reload()">
                     <i class="fa fa-refresh"></i> Reload
                 </button>
+
+                <span class="label label-info">
+                    {{interviewSim.shortestPath}}
+                </span>
+
+                <span class="label label-default">
+                    {{interviewSim.iteration}}
+                </span>
+
             </div>
 
             <tspi-map map="interviewSim.map"></tspi-map>
