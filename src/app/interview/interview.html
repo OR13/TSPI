@@ -73,7 +73,7 @@
         <div class="tspi-metrics"
              ng-show="InterviewController.shortestPath">
 
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table table-bordered table-hover">
                 <tr>
                     <th>Iteration</th>
                     <th>Distance</th>
@@ -81,6 +81,7 @@
 
                 <tr ng-repeat="path in InterviewController.shortestPaths"
                     ng-click="InterviewController.selectPath(path)"
+                    style="cursor: pointer;"
                     ng-class="{'active': InterviewController.isActivePath(path)}">
                     <td>{{path.iteration}}</td>
                     <td> {{path.distance }}</td>
