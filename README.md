@@ -3,6 +3,10 @@ TSPI
 
 Traveling Salesmen Ant Colony Optimization Demo
 
+In this variation on the classic traveling salesman problem, we seek to define a heuristic function 'scoreCity', used by a salesman at each city to determine which of the remaining cities to travel to next.
+
+See Demo: http://tspi.or13.io/interview
+
 ### Features
 * Strict mode is the default.
 * TypeScript Support.
