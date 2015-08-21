@@ -28,7 +28,9 @@ module TSPI {
                     .state('interview', {
                         url: '/interview',
                         templateUrl: 'app/interview/interview.html',
-                        controller: 'InterviewController'
+                        controller: 'InterviewController',
+                        controllerAs: 'InterviewController',
+
                     });
 
                 $urlRouterProvider.otherwise('/interview');

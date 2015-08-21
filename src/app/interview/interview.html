@@ -1,45 +1,122 @@
 <div class="container">
 
-    <div class="row">
-        <h1 style="margin-top: 64px; margin-bottom: 32px;">
-            TSP Interview
-        </h1>
+    <!--<code>-->
+        <!--if (iteration === 0) {-->
+        <!--return 1 / distance;-->
+        <!--}-->
 
+        <!--var rand = Math.random();-->
 
+        <!--if (rand > .5) {-->
+        <!--return rank * (Math.random() * 20) / distance;-->
+        <!--} else {-->
+        <!--return (1 / distance) * rank;-->
+        <!--}-->
+    <!--</code>-->
+
+    <div class="col-sm-9 col-md-9 col-lg-9">
+
+        <tspi-map style="margin-top: 64px; " map="InterviewController.map"
+                  class="tspi-map col-sm-12 col-md-12 col-lg-12"></tspi-map>
+        <div ui-ace="InterviewController.aceOptions" ng-model="InterviewController.aceModel"
+             class="col-sm-12 col-md-12 col-lg-12"></div>
     </div>
 
-    <div class="row">
-        <div ui-ace="aceOptions" ng-model="aceModel" class="col-sm-6 col-md-6 col-lg-6"></div>
+    <div class="col-sm-3 col-md-3 col-lg-3">
 
-        <tspi-sim class="col-sm-6 col-md-6 col-lg-6">
+        <form class="form-inline" style="margin-top: 64px;">
+
+            <button class="btn btn-primary" ng-click="InterviewController.run()">
+                <i class="fa fa-gear"></i> Run Program
+            </button>
+
+            <button class="btn btn-danger pull-right" ng-click="InterviewController.reload()">
+                <i class="fa fa-refresh"></i> Reset Map
+            </button>
 
 
-            <div class="tspi-controls">
-                <button class="btn btn-primary" ng-click="SimController.run()">
-                    <i class="fa fa-gear"></i> Run
-                </button>
+            <div class="input-group" style="margin-top: 36px; margin-bottom: 36px;">
+                <div class="input-group-addon">Max Iterations</div>
+                <input type="number" class="form-control" ng-model="InterviewController.maxIterations" >
+            </div>
 
-                <button class="btn btn-danger" ng-click="SimController.reload()">
-                    <i class="fa fa-refresh"></i> Reload
-                </button>
+            <div class="input-group" style=" margin-bottom: 36px;">
+                <div class="input-group-addon">Num Cities</div>
+                <input type="number" class="form-control" ng-model="InterviewController.numCities" >
+            </div>
+
+            <div class="input-group" style=" margin-bottom: 36px;">
+                <div class="input-group-addon">Iterations / Second</div>
+                <input type="number" class="form-control" ng-model="InterviewController.iterationsPerSecond" >
             </div>
 
 
-            <div class="tspi-metrics" ng-show="interviewSim.shortestPath">
-                <h3>Metrics</h3>
+        </form>
 
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="path in interviewSim.shortestPaths">
-                        <span class="badge badge-info">{{path.distance}}</span>
-                        <span class="badge">{{interviewSim.iteration}}</span>
-                        Path
-                    </li>
-                </ul>
-            </div>
+        <div class="tspi-metrics"
+             ng-hide="InterviewController.shortestPath">
 
-            <tspi-map map="interviewSim.map"></tspi-map>
 
-        </tspi-sim>
+            <h3>
+                Ants & Salesmen
+            </h3>
+
+            <p class="">
+                In this variation on the classic traveling salesman problem, we seek to define a heuristic function
+                'scoreCity', used by a salesman at each city to determine which of the remaining cities to travel to
+                next.
+            </p>
+
+        </div>
+
+
+        <div class="tspi-metrics"
+             ng-show="InterviewController.shortestPath">
+
+            <table class="table table-bordered table-striped table-hover">
+                <tr>
+                    <th>Iteration</th>
+                    <th>Distance</th>
+                </tr>
+
+                <tr ng-repeat="path in InterviewController.shortestPaths"
+                    ng-click="InterviewController.selectPath(path)"
+                    ng-class="{'active': InterviewController.isActivePath(path)}">
+                    <td>{{path.iteration}}</td>
+                    <td> {{path.distance }}</td>
+                </tr>
+            </table>
+
+            <p class="text-center">
+                <small>{{InterviewController.iteration}} of {{InterviewController.maxIterations}}</small>
+            </p>
+
+        </div>
+
+        <ul class="list-group">
+
+            <li class="list-group-item">
+                <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem" target="_blank">
+                    <i class="fa fa-book"></i> Traveling Salesman
+                </a>
+            </li>
+
+            <li class="list-group-item">
+                <a href=" http://www.math.uwaterloo.ca/tsp/" target="_blank">
+                    <i class="fa fa-book"></i> U. Waterloo TSP
+                </a>
+            </li>
+
+            <li class="list-group-item">
+                <a href="https://en.wikipedia.org/wiki/Ant_colony_optimization_algorithms" target="_blank">
+                    <i class="fa fa-book"></i>  Ant Colony Optimization
+                </a>
+
+            </li>
+
+        </ul>
+
     </div>
+
 
 </div>

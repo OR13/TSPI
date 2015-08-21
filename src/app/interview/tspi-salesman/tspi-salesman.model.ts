@@ -1,4 +1,4 @@
-/// <reference path="../../../reference.ts" />
+/// <reference path="../../reference.ts" />
 
 module TSPI {
     'use strict';
@@ -29,7 +29,8 @@ module TSPI {
 
         getPathToAllCities(map:TSPIMap, iteration:number) {
 
-            this.travelToCity(map.cities[0]);
+            var firstCity =  map.cities[Math.floor(Math.random()*map.cities.length)];
+            this.travelToCity(firstCity);
 
             this.updateRemainingCitiesFrom(map);
 
@@ -66,7 +67,7 @@ module TSPI {
 
             var self = this;
 
-            var firstCity = remainingCities[0];
+            var firstCity =  remainingCities[Math.floor(Math.random()*remainingCities.length)];
             var bestCityScore = this.scoreCityCandidate(firstCity, iteration);
             var bestCity = firstCity;
 
@@ -83,23 +84,9 @@ module TSPI {
         }
 
         scoreCityCandidate(city:TSPICity, iteration:number):number {
-
             var self = this;
-
             var distance = city.getDistanceFrom(this.currentCity);
-
-            if (iteration == 0) {
-                return 1 / distance;
-            }
-
-            var rand = Math.random();
-
-            if (rand > .5) {
-                return city.rank * (Math.random() * 20) / distance;
-            } else {
-                return (1 / distance) * city.rank;
-            }
-
+            return window['scoreCity'](distance, city.rank, iteration);
         }
 
     }

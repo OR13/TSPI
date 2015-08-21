@@ -1,4 +1,4 @@
-/// <reference path="../../../reference.ts" />
+/// <reference path="../../reference.ts" />
 
 module TSPI.Directives {
     'use strict';
@@ -6,19 +6,18 @@ module TSPI.Directives {
     export function tspiMap():ng.IDirective {
         return {
             restrict: 'E',
-            scope: false, // use controller scope
-            controller: TSPI.Controllers.TSPIMapController,
-            controllerAs: 'MapController',
-            bindToController: true,
+            scope: true, // inherit controller scope
             template: '<div id="tspi-map-container"></div>',
             replace: true,
-            link: function (scope:TSPI.Controllers.ITSPIMapScope, element:any, attrs:any) {
+            link: function (scope: any, element:any, attrs:any) {
+
+                var mapWidth = $('.tspi-map')[0].offsetWidth;
 
                 scope.ui = {};
                 scope.ui.svgContainer = d3.select('#tspi-map-container').append('svg');
                 scope.ui.svgContainer
-                    .attr('width', 512)
-                    .attr('height', 512);
+                    .attr('width', mapWidth)
+                    .attr('height', 256);
 
                 //scope.ui.color = d3.scale.linear()
                 //    .domain([0, 1])
@@ -30,7 +29,7 @@ module TSPI.Directives {
                     scope.ui.svgContainer.selectAll('circle').remove();
 
                     scope.ui.svgContainer.selectAll('circle')
-                        .data(scope.interviewSim.map.cities)
+                        .data(scope.$parent.InterviewController.map.cities)
                         .enter()
                         .append('circle')
                         .attr('cx', function (d:TSPICity) {
@@ -49,7 +48,7 @@ module TSPI.Directives {
 
                 scope.ui.drawPath = function (path:Array<TSPICity>) {
 
-                    //scope.ui.nextColor = d3.rgb.brighter(scope.ui.nextColor);
+                    scope.ui.svgContainer.selectAll('line').remove();
 
                     for (var i = 0; i < path.length - 1; i++) {
                         var c1 = path[i];
@@ -65,19 +64,22 @@ module TSPI.Directives {
 
                 };
 
-                scope.$watch('interviewSim.map.cities', function (cities:Array<TSPICity>) {
+                //console.log('what to watch ', scope.$parent)
+
+                scope.$parent.$watch('InterviewController.map.cities', function (cities:Array<TSPICity>) {
                     //console.warn('Map Cities: ', cities);
                     scope.ui.drawCities();
                 });
 
-                scope.$watch('interviewSim.shortestPath', function (path: TSPIPath) {
-                    console.warn('Sim : ', scope.interviewSim);
+                scope.$parent.$watch('InterviewController.selectedPath', function (selectedPath:TSPIPath) {
+                    //console.warn('Shortest Path: ', selectedPath);
 
-                    if (path === null){ return; }
+                    if (selectedPath){
+                        scope.ui.drawPath(selectedPath.cities);
+                    }
 
-                    scope.ui.drawPath(path.cities);
+                });
 
-                }, true);
 
             }
         };

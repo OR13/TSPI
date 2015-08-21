@@ -3,19 +3,109 @@
 module TSPI.Controllers {
     'use strict';
 
-    export interface IInterviewScope extends ng.IScope {
-        aceOptions: Object;
-        aceModel: String;
-        interviewSim: TSPISim
-    }
 
     export class InterviewController {
+        public aceOptions: Object;
+        public aceModel: String;
+        public scope: any;
+        public salesman:TSPISalesman;
+        public map:TSPIMap;
+        public iterationsPerSecond: number;
+        public iteration:number;
+        public maxIterations:number;
+        public shortestPathDistance:number;
+        public shortestPath:TSPIPath;
+        public shortestPaths:Array<TSPIPath>;
+        public selectedPath: TSPIPath;
+        public numCities: number;
+
+        private runIterations = ():void => {
+
+            //console.log(this.iteration);
+
+            if (this.iteration >= this.maxIterations) {
+                console.info('Done: ', this);
+                return;
+            }
+
+            this.salesman = new TSPISalesman();
+            this.salesman.getPathToAllCities(this.map, this.iteration);
+
+            //console.log('Iteration: ', this.iteration, this.shortestPathDistance, this.salesman.currentPathDistance);
+
+            if ( this.salesman.currentPathDistance < this.shortestPathDistance || this.shortestPathDistance == -1) {
+                //console.log('Iteration: ', this.iteration, this.shortestPathDistance, this.salesman.currentPathDistance);
+                this.shortestPath = new TSPIPath(this.salesman.currentPath, this.salesman.currentPathDistance, this.iteration);
+                this.selectedPath = this.shortestPath;
+                this.shortestPathDistance = this.shortestPath.distance;
+                this.shortestPaths.push(this.shortestPath);
+                this.salesman.rankCities();
+
+            }
+
+            this.iteration++;
+            this.scope.safeApply();
+
+            setTimeout(this.runIterations, 1000 / this.iterationsPerSecond);
+        };
+
+
+        public run = () => {
+            console.log('running ', this);
+            this.iteration = 0;
+
+            eval(this.aceModel.toString());
+
+            //console.log('compile is it there now', window['scoreCity']);
+
+            this.runIterations();
+        };
+
+        public selectPath = (path: TSPIPath) => {
+           this.selectedPath = path;
+        };
+
+        public isActivePath = (path: TSPIPath) => {
+            return this.selectedPath == path;
+
+        };
+
+        public reload = () => {
+            console.log('reloading ', this);
+            this.iteration = 0;
+            this.shortestPathDistance = -1;
+            this.shortestPath = null;
+            this.shortestPaths = [];
+            this.map = new TSPIMap(this.numCities);
+
+        };
+
         /* @ngInject */
-        constructor($scope: IInterviewScope) {
+        constructor($scope: any) {
 
-            $scope.interviewSim = new TSPISim();
+            this.iteration = 0;
+            this.maxIterations = 100;
+            this.shortestPathDistance = -1;
+            this.shortestPath = null;
+            this.shortestPaths = [];
+            this.iterationsPerSecond = 5;
+            this.numCities = 8;
+            this.map = new TSPIMap(this.numCities);
 
-            $scope.aceOptions = {
+            this.scope = $scope;
+
+            $scope.safeApply = function(fn) {
+                var phase = this.$root.$$phase;
+                if(phase == '$apply' || phase == '$digest') {
+                    if(fn && (typeof(fn) === 'function')) {
+                        fn();
+                    }
+                } else {
+                    this.$apply(fn);
+                }
+            };
+
+            this.aceOptions = {
                 useWrapMode: true,
                 showGutter: false,
                 theme: 'twilight',
@@ -32,34 +122,29 @@ module TSPI.Controllers {
             };
 
             // initial code content...
-            $scope.aceModel =
+            this.aceModel =
                 `
 
-/**
- * This function determines which node the ant will travel to next.
- * Each node remaining in the circuit will result in a call to this function.
- * The node that scores the highest will be chosen.
- * Higher value == better choice.
- *
- * @param distance   - the distance to the node in question
- * @param edgeValue  - 1 + n (where n is the number of winner ants that have taken this edge)
- * @param passNumber - the pass
- * @return
- */
+// A salesmen always travels to the city with the highest score.
+// Distance is the distance from the salesman's current city to the city being scored.
+// Rank is 1 + the number of salesmen who have found a shortest path passing through the city being scored.
+// Iteration is the number of salesmen who have tried to find a shortest path.
 
-@Override // [0, 1]
-public double scoreEdgeCandidate(double distance, double edgeValue, int passNumber) {
+window.scoreCity = function(distance, rank, iteration){
 
-    if (passNumber == 1) {
+    if (iteration === 0) {
         return 1 / distance;
     }
-    if (mRandom.nextBoolean()) {
-        return edgeValue * (mRandom.nextDouble() * 20) / distance;
-    } else {
-        return (1 / distance) * edgeValue;
-    }
-}
 
+    var rand = Math.random();
+
+    if (rand > .5) {
+        return rank * (Math.random() * 20) / distance;
+    } else {
+        return (1 / distance) * rank;
+    }
+
+}
 
 `;
 
