@@ -6,6 +6,7 @@ module TSPI {
     export class TSPIMap {
 
         public cities:Array<TSPICity>;
+        public edgeMap: { [edgeString: string]: TSPIEdge; } = { };
 
         constructor(numCities: number) {
 
@@ -20,8 +21,6 @@ module TSPI {
             for (var cityId = 0; cityId < numCities; cityId++) {
                 var city = new TSPICity(
                     cityId,
-                    `City ${cityId}`,
-                    'Its Description',
                     'black',
                     randomWithRange(9, mapWidth),
                     randomWithRange(8, 248)
@@ -31,7 +30,7 @@ module TSPI {
             }
 
 
-            //console.info('Constructed: ', this);
+            // console.info('Constructed: ', this);
         }
     }
 }

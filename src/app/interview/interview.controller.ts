@@ -5,49 +5,19 @@ module TSPI.Controllers {
 
 
     export class InterviewController {
-        public aceOptions: Object;
-        public aceModel: String;
-        public scope: any;
+        public aceOptions:Object;
+        public aceModel:String;
+        public scope:any;
         public salesman:TSPISalesman;
         public map:TSPIMap;
-        public iterationsPerSecond: number;
+        public iterationsPerSecond:number;
         public iteration:number;
         public maxIterations:number;
         public shortestPathDistance:number;
         public shortestPath:TSPIPath;
         public shortestPaths:Array<TSPIPath>;
-        public selectedPath: TSPIPath;
-        public numCities: number;
-
-        private runIterations = ():void => {
-
-            //console.log(this.iteration);
-
-            if (this.iteration >= this.maxIterations) {
-                console.info('Done: ', this);
-                return;
-            }
-
-            this.salesman = new TSPISalesman();
-            this.salesman.getPathToAllCities(this.map, this.iteration);
-
-            //console.log('Iteration: ', this.iteration, this.shortestPathDistance, this.salesman.currentPathDistance);
-
-            if ( this.salesman.currentPathDistance < this.shortestPathDistance || this.shortestPathDistance == -1) {
-                //console.log('Iteration: ', this.iteration, this.shortestPathDistance, this.salesman.currentPathDistance);
-                this.shortestPath = new TSPIPath(this.salesman.currentPath, this.salesman.currentPathDistance, this.iteration);
-                this.selectedPath = this.shortestPath;
-                this.shortestPathDistance = this.shortestPath.distance;
-                this.shortestPaths.push(this.shortestPath);
-                this.salesman.rankCities();
-
-            }
-
-            this.iteration++;
-            this.scope.safeApply();
-
-            setTimeout(this.runIterations, 1000 / this.iterationsPerSecond);
-        };
+        public selectedPath:TSPIPath;
+        public numCities:number;
 
 
         public run = () => {
@@ -56,17 +26,17 @@ module TSPI.Controllers {
 
             eval(this.aceModel.toString());
 
-            //console.log('compile is it there now', window['scoreCity']);
+            // console.log('compile is it there now', window['scoreCity']);
 
             this.runIterations();
         };
 
-        public selectPath = (path: TSPIPath) => {
-           this.selectedPath = path;
+        public selectPath = (path:TSPIPath) => {
+            this.selectedPath = path;
         };
 
-        public isActivePath = (path: TSPIPath) => {
-            return this.selectedPath == path;
+        public isActivePath = (path:TSPIPath) => {
+            return this.selectedPath === path;
 
         };
 
@@ -80,24 +50,53 @@ module TSPI.Controllers {
 
         };
 
+        private runIterations = ():void => {
+
+            // console.log(this.iteration);
+
+            if (this.iteration >= this.maxIterations) {
+                console.info('Done: ', this);
+                return;
+            }
+
+            this.salesman = new TSPISalesman();
+            this.salesman.getPathToAllCities(this.map, this.iteration);
+
+            // console.log('Iteration: ', this.iteration, this.shortestPathDistance, this.salesman.currentPathDistance);
+
+            if (this.salesman.currentPathDistance < this.shortestPathDistance || this.shortestPathDistance === -1) {
+                // console.log('Iteration: ', this.iteration, this.shortestPathDistance, this.salesman.currentPathDistance);
+                this.shortestPath = new TSPIPath(this.salesman.currentPath, this.salesman.currentPathDistance, this.iteration);
+                this.selectedPath = this.shortestPath;
+                this.shortestPathDistance = this.shortestPath.distance;
+                this.shortestPaths.push(this.shortestPath);
+                this.salesman.rankEdgeMapCities(this.shortestPath);
+            }
+
+            this.iteration++;
+            this.scope.safeApply();
+
+            setTimeout(this.runIterations, 1000 / this.iterationsPerSecond);
+        };
+
+
         /* @ngInject */
-        constructor($scope: any) {
+        constructor($scope:any) {
 
             this.iteration = 0;
-            this.maxIterations = 100;
+            this.maxIterations = 1000;
             this.shortestPathDistance = -1;
             this.shortestPath = null;
             this.shortestPaths = [];
-            this.iterationsPerSecond = 5;
-            this.numCities = 8;
+            this.iterationsPerSecond = 10;
+            this.numCities = 10;
             this.map = new TSPIMap(this.numCities);
-
             this.scope = $scope;
 
-            $scope.safeApply = function(fn) {
+            $scope.safeApply = function (fn:any) {
                 var phase = this.$root.$$phase;
-                if(phase == '$apply' || phase == '$digest') {
-                    if(fn && (typeof(fn) === 'function')) {
+                if (phase === '$apply' || phase === '$digest') {
+                    if (fn && (typeof(fn) === 'function')) {
                         fn();
                     }
                 } else {
@@ -108,16 +107,16 @@ module TSPI.Controllers {
             this.aceOptions = {
                 useWrapMode: true,
                 showGutter: false,
-                theme: 'twilight',
+                theme: 'chrome',
                 mode: 'javascript',
                 firstLineNumber: 5,
-                onLoad: function (_editor: any) {
+                onLoad: function (_editor:any) {
                     // options
                     _editor.setReadOnly(false);
                     _editor.$blockScrolling = Infinity;
                 },
-                onChange: function (e: any) {
-                    //console.log('editor changed...', e);
+                onChange: function (e:any) {
+                    // console.log('editor changed...', e);
                 }
             };
 

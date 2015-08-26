@@ -9,7 +9,7 @@ module TSPI.Directives {
             scope: true, // inherit controller scope
             template: '<div id="tspi-map-container"></div>',
             replace: true,
-            link: function (scope: any, element:any, attrs:any) {
+            link: function (scope:any, element:any, attrs:any) {
 
                 var mapWidth = $('.tspi-map')[0].offsetWidth;
 
@@ -18,10 +18,6 @@ module TSPI.Directives {
                 scope.ui.svgContainer
                     .attr('width', mapWidth)
                     .attr('height', 256);
-
-                //scope.ui.color = d3.scale.linear()
-                //    .domain([0, 1])
-                //    .range(["red", "green"]);
 
                 scope.ui.drawCities = function () {
 
@@ -39,47 +35,51 @@ module TSPI.Directives {
                             return d.y_axis;
                         })
                         .attr('r', function (d:TSPICity) {
-                            return 5;
+                            return 4;
                         })
                         .style('fill', function (d:TSPICity) {
                             return d.color;
                         });
+
                 };
 
                 scope.ui.drawPath = function (path:Array<TSPICity>) {
 
                     scope.ui.svgContainer.selectAll('line').remove();
 
+                    var colorScale = d3.scale.category10();
+
                     for (var i = 0; i < path.length - 1; i++) {
                         var c1 = path[i];
                         var c2 = path[i + 1];
 
+                        var edge = scope.$parent.InterviewController.salesman.getOrCreateEdge(c1, c2);
+
                         scope.ui.svgContainer.append('line')
-                            .style('stroke', 'black')
+                            .style('stroke', colorScale(edge.rank))
+                            .style('stroke-width', 2)
                             .attr('x1', c1.x_axis)
                             .attr('y1', c1.y_axis)
                             .attr('x2', c2.x_axis)
                             .attr('y2', c2.y_axis);
-                    };
+                    }
 
                 };
 
-                //console.log('what to watch ', scope.$parent)
+                // console.log('what to watch ', scope.$parent)
 
                 scope.$parent.$watch('InterviewController.map.cities', function (cities:Array<TSPICity>) {
-                    //console.warn('Map Cities: ', cities);
+                    // console.warn('Map Cities: ', cities);
                     scope.ui.drawCities();
                 });
 
                 scope.$parent.$watch('InterviewController.selectedPath', function (selectedPath:TSPIPath) {
-                    //console.warn('Shortest Path: ', selectedPath);
-
-                    if (selectedPath){
+                    // console.warn('Shortest Path: ', selectedPath);
+                    if (selectedPath) {
                         scope.ui.drawPath(selectedPath.cities);
                     }
 
                 });
-
 
             }
         };

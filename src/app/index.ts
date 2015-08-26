@@ -29,7 +29,7 @@ module TSPI {
                         url: '/interview',
                         templateUrl: 'app/interview/interview.html',
                         controller: 'InterviewController',
-                        controllerAs: 'InterviewController',
+                        controllerAs: 'InterviewController'
 
                     });
 
